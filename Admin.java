@@ -64,12 +64,11 @@ public class Admin extends Account{
                 }
                 if (!passStatus)
                 {
-                    System.out.println("Wrong password has been entered 3 times, your account is blocked");
+                    System.out.println("Wrong password, try later");
                 }
                 break;
             }
         }
-
     }
 
     @Override
