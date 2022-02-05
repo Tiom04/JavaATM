@@ -107,7 +107,17 @@ public class Customer extends Account{
 
         boolean foundCarNumber = false;
         do {
-            cardNumber = String.format("%d", random.nextInt((10000000)));
+            int leftLimit = 48;//0
+            int rightLimit = 57;//9
+            int targetStringLength = 8;
+            StringBuilder buffer = new StringBuilder(targetStringLength);
+            for (int i = 0; i < targetStringLength; i++) {
+                int randomLimitedInt = leftLimit + (int)
+                        (random.nextFloat() * (rightLimit - leftLimit + 1));
+                buffer.append((char) randomLimitedInt);
+            }
+            cardNumber = buffer.toString();
+
             Account currentAccount;
             String tmpString;
             BufferedReader br = null;
@@ -149,9 +159,14 @@ public class Customer extends Account{
             }
             if (foundCarNumber) {
                 System.out.println("Generated card number already exists, one more try...");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }while(foundCarNumber == true);
-        System.out.println(String.format("Your card number is %d", cardNumber));
+        System.out.println(String.format("Your card number is %s", cardNumber));
         System.out.println("Create 5-digit Pin code");
         int pin;
         Scanner keyboard = new Scanner(System.in);
