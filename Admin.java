@@ -78,6 +78,6 @@ public class Admin extends Account{
 
     @Override
     public String ToString() {
-        return null;
+        return String.format("%s\n%s\n%d", accountType, accLogin, _pinCode);
     }
 }
