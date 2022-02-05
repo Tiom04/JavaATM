@@ -31,6 +31,7 @@ public class Main {
 
         private static void UseATM(){
             System.out.println("Welcome to my Banking system!\n");
+            Scanner keyboard = new Scanner(System.in);
             try{
                 File directory = new File("C:\\tmp\\java");
                 if(!directory.exists()){
@@ -70,11 +71,44 @@ public class Main {
                 currentAdmin = (Admin)currentAccount;
                 AdminMenu(currentAdmin);
             }
+            else
+            {
+                Customer currentCustomer = new Customer();
+                currentCustomer = (Customer)currentAccount;
+                if(currentCustomer.status != "Blocked")
+                {
+                    CustomerMenu(currentCustomer);
+                }
+                else
+                {
+                    System.out.println("Your account is currenty blocked\nCreate unblock request? (Y/N)");
+                    String option = keyboard.nextLine();
+                    if(option == "Y" || option == "y")
+                    {
+                        System.out.print("Write your unblock request message here: ");
+                        String comment = keyboard.nextLine();
+                        UnblockRequest unblock = new UnblockRequest(comment, currentCustomer);
+                        unblockRequestList.add(unblock);
+                        System.out.println("Unblock request added, please wait for admins to see it");
+                    }
+                    else if(option == "N" || option == "n")
+                    {
+                        System.out.println("oko, bye");
+                    }
+                    else{
+                        System.out.println("Wrong input");
+                    }
+                }
+            }
 
         }
 
+    private static void CustomerMenu(Customer currentCustomer) {
+            System.out.println("Customer menu goes here");
+    }
+
     private static void AdminMenu(Admin currentAdmin) {
-            //admin menu goes here
+        System.out.println("Admin menu goes here");
     }
 
     private static Account LoginOrRegister(){
