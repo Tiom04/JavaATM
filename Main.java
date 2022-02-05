@@ -126,7 +126,7 @@ public class Main {
         }
 
         try {
-            bw = new BufferedWriter(new FileWriter(path_customers.toString());
+            bw = new BufferedWriter(new FileWriter(path_customers.toString()));
         } catch (IOException e) {
             e.printStackTrace();
         }
