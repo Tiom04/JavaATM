@@ -1,3 +1,5 @@
+import sun.invoke.empty.Empty;
+
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.FileAttribute;
@@ -64,6 +66,7 @@ public class Main {
             String loginTmp = keyboard.nextLine();
             boolean containFlag = false;
             Account currentAccount;
+            String tmpString;
 
         BufferedReader br = null;
         try {
@@ -72,18 +75,37 @@ public class Main {
             e.printStackTrace();
         }
         try{
+            do {
+                tmpString = br.readLine();
+                if(tmpString == null || tmpString == "") {
+                    continue;
+                }
+                Admin tmpAdminAdd = new Admin(br.readLine());
+                tmpAdminAdd._pinCode = Integer.parseInt(br.readLine());
+                if(tmpAdminAdd != null) {
+                    adminList.add(tmpAdminAdd);
+                }
+            } while (tmpString != null);
 
-            //read string = br.readLine();
-            //while line !=null line - readline
-
-        }
-        finally {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
             try {
                 br.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        for (Admin val : adminList) {
+            if(val.GetLogin() == loginTmp)
+            {
+                containFlag = true;
+                val.Login();//goes to login inside the class
+                return val;
+            }
+        }
+
+
 
 
         //check adminlist first, then customerlist. if containFlag is false finally then create new account
