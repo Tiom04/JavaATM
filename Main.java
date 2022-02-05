@@ -101,7 +101,66 @@ public class Main {
                 }
             }
 
+
+            SaveAll(adminList, customerList, unblockRequestList);
         }
+
+    private static void SaveAll(HashSet<Admin> admList, HashSet<Customer> custList, HashSet<UnblockRequest> unblReqList) {
+            BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(path_admins.toString()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Admin val : admList) {
+            try {
+                bw.write(val.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            bw = new BufferedWriter(new FileWriter(path_customers.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (Customer val : custList) {
+            try {
+                bw.write(val.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            bw = new BufferedWriter(new FileWriter(path_unblocks.toString()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (UnblockRequest val: unblReqList) {
+            try {
+                bw.write(val.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static void CustomerMenu(Customer currentCustomer) {
             System.out.println("Customer menu goes here");
