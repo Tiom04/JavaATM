@@ -73,7 +73,15 @@ public class Admin extends Account{
 
     @Override
     public void Register(String login) {
-
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("\t_----Register new admin account----_");
+        accLogin = login;
+        System.out.println("Create 5-digit Pin code");
+        int pinCode;
+        do {pinCode = keyboard.nextInt();}
+        while(pinCode < 10000 || pinCode > 99999);
+        _pinCode = pinCode;
+        System.out.println("Registered successfully");
     }
 
     @Override

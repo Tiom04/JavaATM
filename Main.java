@@ -220,17 +220,26 @@ public class Main {
             e.printStackTrace();
         }
         try{
-            do{
-               tmpString = br.readLine();
-               if(tmpString == null || tmpString == ""){
-                   continue;
-               }
-            }while(tmpString != null);
+            do {
+                tmpString = br.readLine();
+
+                if(tmpString == null || tmpString == "") {
+                    continue;
+                }
+                try {
+                    Customer tmpCustomerAdd = new Customer(br.readLine(), br.readLine(), Double.parseDouble(br.readLine()),
+                            br.readLine(), Integer.parseInt(br.readLine()));
+                    if(tmpCustomerAdd != null) {
+                        Main.customerList.add(tmpCustomerAdd);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } while (tmpString != null);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
-            try{
+        }finally {
+            try {
                 br.close();
             } catch (IOException e) {
                 e.printStackTrace();

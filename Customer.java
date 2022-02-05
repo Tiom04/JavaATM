@@ -100,7 +100,66 @@ public class Customer extends Account{
 
     @Override
     public void Register(String login) {
+        Random random = new Random();
+        System.out.println("\t_----Register new customer account----_");
+        accLogin = login;
+        accountType = "Customer";
 
+        boolean foundCarNumber = false;
+        do {
+            cardNumber = String.format("%d", random.nextInt((10000000)));
+            Account currentAccount;
+            String tmpString;
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(Main.path_customers.toString()));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                do {
+                    tmpString = br.readLine();
+                    if (tmpString == null || tmpString == "") {
+                        continue;
+                    }
+                    try {
+                        Customer tmpCustomerAdd = new Customer(br.readLine(), br.readLine(), Double.parseDouble(br.readLine()),
+                                br.readLine(), Integer.parseInt(br.readLine()));
+                        if (tmpCustomerAdd != null) {
+                            Main.customerList.add(tmpCustomerAdd);
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                } while (tmpString != null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            for (Customer val : Main.customerList) {
+                if (val.cardNumber == cardNumber) {
+                    foundCarNumber = true;
+                    break;
+                }
+            }
+            if (foundCarNumber) {
+                System.out.println("Generated card number already exists, one more try...");
+            }
+        }while(foundCarNumber == true);
+        System.out.println(String.format("Your card number is %d", cardNumber));
+        System.out.println("Create 5-digit Pin code");
+        int pin;
+        Scanner keyboard = new Scanner(System.in);
+        do{ pin = keyboard.nextInt();}
+        while(pin < 10000 || pin > 99999);
+        pinCode = pin;
+        status = "Active";
+        System.out.println("Registered successfully");
     }
 
     @Override
