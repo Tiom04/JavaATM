@@ -93,7 +93,7 @@ public class Main {
                     }
                     else if(option == "N" || option == "n")
                     {
-                        System.out.println("oko, bye");
+                        System.out.println("ok, bye");
                     }
                     else{
                         System.out.println("Wrong input");
@@ -196,7 +196,6 @@ public class Main {
                     adminList.add(tmpAdminAdd);
                 }
             } while (tmpString != null);
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
