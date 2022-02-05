@@ -13,7 +13,7 @@ public class Admin extends Account{
 
     @Override
     public void Login() {
-
+        System.out.println("admin Login goes here");
     }
 
     @Override

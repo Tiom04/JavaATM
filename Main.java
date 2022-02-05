@@ -31,9 +31,18 @@ public class Main {
 
         private static void UseATM(){
             System.out.println("Welcome to my Banking system!\n");
+            try{
+                File directory = new File("C:\\tmp\\java");
+                if(!directory.exists()){
+                    directory.mkdirs();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             try {
                 File cstFl = new File(path_customers.toString());
                 if (!cstFl.exists()) {
+
                     cstFl.createNewFile();
                 }
                 File admFl = new File(path_admins.toString());
@@ -55,10 +64,18 @@ public class Main {
             }
             Account currentAccount = LoginOrRegister();
 
-
-
+            if(currentAccount.GetType() == "Admin")
+            {
+                Admin currentAdmin = new Admin();
+                currentAdmin = (Admin)currentAccount;
+                AdminMenu(currentAdmin);
+            }
 
         }
+
+    private static void AdminMenu(Admin currentAdmin) {
+            //admin menu goes here
+    }
 
     private static Account LoginOrRegister(){
             System.out.print("Enter your login to sign in or register: ");
@@ -105,11 +122,36 @@ public class Main {
             }
         }
 
-
-
-
-        //check adminlist first, then customerlist. if containFlag is false finally then create new account
-
+        try {
+            br = new BufferedReader(new FileReader(path_customers.toString()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try{
+            do{
+               tmpString = br.readLine();
+               if(tmpString == null || tmpString == ""){
+                   continue;
+               }
+            }while(tmpString != null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        for (Customer val : customerList) {
+            if(val.GetLogin()==loginTmp)
+            {
+                containFlag = true;
+                val.Login();//goes to customer login
+                return val;
+            }
+        }
         if(!containFlag)
         {
             System.out.print("Creating new account. 1 = ADMIN, 2 = Customer\nChoice: ");
